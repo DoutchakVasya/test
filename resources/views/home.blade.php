@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <form action="/api/deal" id="form">
+    <form action="{{url('/api/deal')}}" id="form">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group col-2">
             <label for="name">Название сделки</label>

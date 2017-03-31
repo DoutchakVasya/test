@@ -14,7 +14,7 @@
                 <thead>
                 <th>Список</th>
                 <th>&nbsp;</th>
-                <th><a href="/">Назад</a></th>
+                <th><a href="{{url('/')}}">Назад</a></th>
                 </thead>
 
                 <!-- Table Body -->
