@@ -38,12 +38,17 @@ class BaseController extends Controller
     public function store(FormZoro $request)
     {
 		try {
+
 			$task = new Task;
 			$task->name = $request->name;
 			$task->save();
+
 			return response()->json(['true']);
+
 		} catch (Exception $e) {
+
 			return response()->json(['error' => $e]);
+
 		}
 
     }
@@ -90,6 +95,14 @@ class BaseController extends Controller
      */
     public function destroy($id)
     {
-        Task::destroy($id);
+		try {
+
+			Task::destroy($id);
+
+		} catch (Exception $e) {
+
+			return response()->json(['error' => $e]);
+
+		}
     }
 }
