@@ -17,8 +17,4 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
-/**
- * GET, POST, PUT/PATCH, DELETE requests
- */
-Route::resource('/deal', 'Api\BaseController');
 

@@ -25,7 +25,8 @@ class FormZoro extends FormRequest
     {
         return [
             'name' => 'required',
-			'date' => 'required'
+			'date' => 'required',
+			'status' => 'required|int'
         ];
     }
 }

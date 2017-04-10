@@ -2,38 +2,33 @@
 
 @section('content')
 
+@if (!empty($dealId))
     <div class="panel panel-default">
-        <div class="panel-heading">
-            Текущие таски
+        <div class="panel-heading col-3">
+            <p>
+                <strong>Сделка успешно создана</strong>
+            </p>
         </div>
 
         <div class="panel-body col-3">
-            <table class="table table-striped task-table">
-
-                <!-- Table Headings -->
-                <thead>
-                <th>Список</th>
-                <th>&nbsp;</th>
-                <th><a href="{{url('/')}}">Назад</a></th>
-                </thead>
-
-                <!-- Table Body -->
-                <tbody>
-                @foreach ($tasks as $task)
-                    <tr id="{{$task->id}}">
-                        <!-- Task Name -->
-                        <td class="table-text">
-                            <div>{{ $task->name }}</div>
-                        </td>
-
-                        <td>
-                            <button type="button" class="btn btn-danger" _method="delete" onclick="deleteTask({{ $task->id }})">Delete</button>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+           <p>Идентификатор сделки: {{$dealId}}</p>
+           <p>Идентификатор задачи: {{$taskId}}</p>
         </div>
     </div>
+    <div class="col-3">
+        <a href="{{url('/')}}">Назад</a>
+    </div>
+@endif
+
+@if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 
 @endsection

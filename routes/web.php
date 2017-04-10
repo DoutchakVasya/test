@@ -16,17 +16,9 @@ use App\Task;
  * Home page [Create task]
  */
 
-Route::get('/', function () {
-	return view('home');
-});
+Route::get('/','BaseController@create');
 
 /**
- * Show all of tasks
+ * Send API request to ZohoCRM
  */
-Route::get('/all', function () {
-	$tasks = Task::orderBy('created_at', 'asc')->get();
-
-	return view('tasks', [
-		'tasks' => $tasks
-	]);
-});
+Route::post('/store', 'BaseController@storePotential');
