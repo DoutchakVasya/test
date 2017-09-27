@@ -24,9 +24,9 @@ class FormZoro extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-			'date' => 'required',
-			'status' => 'required|int'
+        'name' => 'required',
+        'date' => 'required',
+        'status' => 'required|int'
         ];
     }
 }

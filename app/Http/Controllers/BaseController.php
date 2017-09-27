@@ -60,7 +60,7 @@ class BaseController extends Controller
 					</Potentials>";
 
 
-			$response = $client->request('POST', 'https://crm.zoho.eu/crm/private/xml/Potentials/insertRecords', [
+			$response = $client->request('POST', 'https://crm.zoho.eu/crm/private/json/Potentials/insertRecords', [
 				'query' => [
 					'authtoken' => $this->tokenUser,
 					'scope' => 'crmapi',
@@ -71,13 +71,12 @@ class BaseController extends Controller
 				]
 			]);
 
-			$deal = ($response->getBody()->getContents());
-
-			preg_match('!<FL val="Id">(\d+)<\/FL>!', $deal, $dealId);
+			$deal = json_decode($response->getBody(), true);
+			$dealId = $deal['response']['result']['recorddetail']['FL']['0']['content'];
 
 			try {
 
-				return $this->storeCall($dealId[1]);
+				return $this->storeCall($dealId);
 
 			} catch (Exception $e) {
 
@@ -105,13 +104,13 @@ class BaseController extends Controller
 
 			$xml = "<Task>
 						<row no=\"1\">
-							<FL val=\"Subject\">Звонок</FL>							
-							<FL val=\"What Id\">$dealId</FL> 
+							<FL val=\"Subject\">Звонок</FL>
+							<FL val=\"What Id\">$dealId</FL>
 						</row>
 					</Task>";
 
 
-			$response = $client->request('POST', 'https://crm.zoho.eu/crm/private/xml/Tasks/insertRecords', [
+			$response = $client->request('POST', 'https://crm.zoho.eu/crm/private/json/Tasks/insertRecords', [
 				'query' => [
 					'authtoken' => $this->tokenUser,
 					'scope' => 'crmapi',
@@ -122,13 +121,13 @@ class BaseController extends Controller
 				]
 			]);
 
-			$task = ($response->getBody()->getContents());
-			preg_match('!<FL val="Id">(\d+)<\/FL>!', $task, $taskId);
+			$task = json_decode($response->getBody(), true);
+			$taskId = $task['response']['result']['recorddetail']['FL']['0']['content'];
 
-			if (!empty($taskId[1])) {
+			if (!empty($taskId)) {
 
 				return view('tasks', [
-					'taskId' => $taskId[1],
+					'taskId' => $taskId,
 					'dealId' => $dealId
 				]);
 
@@ -142,5 +141,3 @@ class BaseController extends Controller
 		}
 	}
 }
-
-
